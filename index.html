@@ -34,7 +34,9 @@ function searchCity() {
     return;
   }
 
-  const found = clubs.find(c => c.City.toLowerCase() === city);
+  const found = clubs.find(c =>
+  c.Club && c.Club.toLowerCase() === city
+);
 
   if (!found) {
     resultDiv.innerHTML = "<b>City not found.</b>";
