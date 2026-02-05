@@ -11,8 +11,8 @@
     <div style="text-align:center;">
 
 
-  <h1 style="margin-bottom:8px; font-size:40px; color:#BE5504;">Club Ausstattungsliste</h1>
-  <div style="font-size:16px; margin-bottom:20px; color:#BE5504;">made by Gabriele Guolo :)</div>
+  <h1 style="margin-bottom:8px; font-size:40px; color:#456178;">Club Ausstattungsliste</h1>
+  <div style="font-size:16px; margin-bottom:20px; color:#456178;">made by Gabriele Guolo :)</div>
 
   <input
     <input
@@ -67,8 +67,10 @@
       let rows = "";
       for (const key of FEATURES) {
         const value = (found[key] ?? "").toString().trim();
-        rows += "<tr><td style='padding:4px 10px; text-align:left;'>" + key + ":</td>"
-          + "<td style='padding:4px 10px; text-align:left;'><b>" + (value || "No data") + "</b></td></tr>";
+        rows += "<tr>"
+  + "<td style='padding:4px 10px; text-align:left; color:#456178;'>" + key + ":</td>"
+  + "<td style='padding:4px 10px; text-align:left; color:#456178;'><b>" + (value || "No data") + "</b></td>"
+  + "</tr>";;
       }
 
       resultDiv.innerHTML =
