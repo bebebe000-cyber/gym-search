@@ -1,74 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Club Feature Search</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Club Ausstattungsliste</title>
 </head>
 
-<body style="background:white; font-family: Arial; text-align:center; margin-top:100px;">
+<body style="background:#fff; font-family: Arial, Helvetica, sans-serif; text-align:center; margin-top:90px;">
 
-<h2>Search City</h2>
+  <h2 style="margin-bottom:6px;">Club Ausstattungsliste</h2>
+  <div style="font-size:12px; margin-bottom:20px;">made by "Gabriele Guolo :)"</div>
 
-<input id="cityInput" type="text" placeholder="Enter city" style="width:200px; padding:5px;">
-<button onclick="searchCity()">Search</button>
+  <input
+    id="clubInput"
+    type="text"
+    placeholder="Stadt / Club eingeben (z.B. Ahlen)"
+    style="width:260px; padding:6px;"
+    autocomplete="off"
+  />
+  <button id="searchBtn" style="padding:6px 10px;">Search</button>
 
-<br><br>
+  <div id="status" style="margin-top:14px; font-size:12px;"></div>
+  <div id="result" style="margin-top:18px;"></div>
 
-<div id="result"></div>
+  <script>
+    // Which columns to display and in what order
+    const FEATURES = [
+      "Sauna",
+      "Infrarot",
+      "Lady Area",
+      "Milon",
+      "Collagen",
+      "Solarium",
+      "Massage",
+      "PowerPlate",
+      "andere Vibraplatte"
+    ];
 
-<script>
-let clubs = [];
+    let clubs = [];
+    const statusDiv = document.getElementById("status");
+    const resultDiv = document.getElementById("result");
 
-fetch("data.json")
-  console.log(clubs);
-  .then(r => r.json())
-  .then(d => {
-    clubs = d.filter(c => c.Club);
-  });
+    function normalizeText(s) {
+      return (s ?? "")
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+    }
 
-function searchCity() {
-  const input = document.getElementById("cityInput").value.trim().toLowerCase();
-  const resultDiv = document.getElementById("result");
+    function showStatus(msg) {
+      statusDiv.textContent = msg;
+    }
 
-  if (!input) {
-    resultDiv.innerHTML = "Please enter a club or city.";
-    return;
-  }
+    function showNotFound() {
+      resultDiv.innerHTML = "<b>City not found.</b>";
+    }
 
-  const found = clubs.find(c =>
-  c.Club
-    .toString()
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .includes(input.replace(/\s+/g, " "))
-  );
+    function showTable(found) {
+      let rows = "";
+      for (const key of FEATURES) {
+        const value = (found[key] ?? "").toString().trim();
+        rows += "<tr><td style='padding:4px 10px; text-align:left;'>" + key + ":</td>"
+          + "<td style='padding:4px 10px; text-align:left;'><b>" + (value || "No data") + "</b></td></tr>";
+      }
 
-  if (!found) {
-    resultDiv.innerHTML = "<b>City not found.</b>";
-    return;
-  }
+      resultDiv.innerHTML =
+        "<div style='display:inline-block; text-align:left;'>" +
+          "<div style='margin-bottom:8px;'><b>Club:</b> " + (found.Club || "") + "</div>" +
+          "<table style='border-collapse:collapse;'>" + rows + "</table>" +
+        "</div>";
+    }
 
-  resultDiv.innerHTML = `
-<table style="margin:auto;">
-<tr><td>Sauna:</td><td>${found["Sauna"]}</td></tr>
-<tr><td>Infrarot:</td><td>${found["Infrarot"]}</td></tr>
-<tr><td>Lady Area:</td><td>${found["Lady Area"]}</td></tr>
-<tr><td>Milon:</td><td>${found["Milon"]}</td></tr>
-<tr><td>Collagen:</td><td>${found["Collagen"]}</td></tr>
-<tr><td>Solarium:</td><td>${found["Solarium"]}</td></tr>
-<tr><td>Massage:</td><td>${found["Massage"]}</td></tr>
-<tr><td>PowerPlate:</td><td>${found["PowerPlate"]}</td></tr>
-<tr><td>andere Vibraplatte:</td><td>${found["andere Vibraplatte"]}</td></tr>
-</table>
-`;
-}
+    function searchClub() {
+      const input = normalizeText(document.getElementById("clubInput").value);
+      resultDiv.innerHTML = "";
 
-document.getElementById("cityInput").addEventListener("keypress", function(e) {
-  if (e.key === "Enter") searchCity();
-});
-</script>
+      if (!input) {
+        showStatus("Bitte Club oder Stadt eingeben.");
+        return;
+      }
+
+      if (!clubs.length) {
+        showStatus("Daten sind noch nicht geladen oder konnten nicht geladen werden.");
+        return;
+      }
+
+      showStatus("");
+
+      const found = clubs.find(c => normalizeText(c.Club).includes(input));
+
+      if (!found) {
+        showNotFound();
+        return;
+      }
+
+      showTable(found);
+    }
+
+    // Button and Enter key
+    document.getElementById("searchBtn").addEventListener("click", searchClub);
+    document.getElementById("clubInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") searchClub();
+    });
+
+    // Load data.json
+    showStatus("Daten werden geladen ...");
+
+    fetch("data.json", { cache: "no-store" })
+      .then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(d => {
+        if (!Array.isArray(d)) throw new Error("data.json ist kein Array");
+        clubs = d.filter(x => x && x.Club);
+        showStatus("Daten geladen: " + clubs.length + " Clubs");
+        console.log("Loaded clubs:", clubs);
+      })
+      .catch(err => {
+        console.error("Failed to load data.json:", err);
+        showStatus("Fehler: data.json konnte nicht geladen werden. Prüfe Dateiname, Ort (gleicher Ordner) und JSON-Format.");
+      });
+  </script>
 
 </body>
 </html>
-
