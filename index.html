@@ -4,7 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Club Ausstattungsliste</title>
+  
 </head>
+  
+<style>
+  ::placeholder {
+    color: #456178;
+  }
+</style>
 
 <body style="background:#222222; font-family: Arial, Helvetica, sans-serif;">
   <div style="width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center;">
@@ -18,7 +25,7 @@
     <input
   id="clubInput"
   type="text"
-  placeholder="Club eingeben (z.B. Ahlen); color:#456178"
+  placeholder="Club eingeben (z.B. Ahlen)"
   style="width:360px; padding:10px; font-size:16px; background:#222222; border:1px solid #333333;"
   onfocus="this.style.background='#333333'"
   onblur="this.style.background='#222222'"
