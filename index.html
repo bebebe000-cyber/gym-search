@@ -35,7 +35,12 @@ function searchCity() {
   }
 
   const found = clubs.find(c =>
-    c.Club.toLowerCase().includes(input)
+  c.Club
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .includes(input.replace(/\s+/g, " "))
   );
 
   if (!found) {
