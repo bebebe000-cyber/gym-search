@@ -24,7 +24,16 @@
   onblur="this.style.background='#222222'"
   autocomplete="off"
   />
-  <button id="searchBtn" style="padding:10px 14px; font-size:16px;">Search</button>
+  <button
+  id="searchBtn"
+  style="padding:10px 18px; font-size:16px; background:#222222; border:1px solid #333333; cursor:pointer;"
+  onmouseover="this.style.background='#333333'"
+  onmouseout="this.style.background='#222222'"
+  onmousedown="this.style.background='#333333'"
+  onmouseup="this.style.background='#222222'"
+>
+  Search
+</button>
 
   <div id="status" style="margin-top:14px; font-size:12px;"></div>
   <div id="result" style="margin-top:18px;"></div>
