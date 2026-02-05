@@ -6,19 +6,19 @@
   <title>Club Ausstattungsliste</title>
 </head>
 
-<body style="background:#fff; font-family: Arial, Helvetica, sans-serif; text-align:center; margin-top:90px;">
+<body style="background:#eee; font-family: Arial, Helvetica, sans-serif; text-align:center; margin-top:120px;">
 
-  <h2 style="margin-bottom:6px;">Club Ausstattungsliste</h2>
-  <div style="font-size:12px; margin-bottom:20px;">made by "Gabriele Guolo :)"</div>
+  <h1 style="margin-bottom:8px; font-size:40px;">Club Ausstattungsliste</h1>
+  <div style="font-size:12px; margin-bottom:20px;">made by Gabriele Guolo :)</div>
 
   <input
     id="clubInput"
     type="text"
     placeholder="Stadt / Club eingeben (z.B. Ahlen)"
-    style="width:260px; padding:6px;"
+    style="width:360px; padding:10px; font-size:16px;"
     autocomplete="off"
   />
-  <button id="searchBtn" style="padding:6px 10px;">Search</button>
+  <button id="searchBtn" style="padding:10px 14px; font-size:16px;">Search</button>
 
   <div id="status" style="margin-top:14px; font-size:12px;"></div>
   <div id="result" style="margin-top:18px;"></div>
@@ -68,7 +68,7 @@
       resultDiv.innerHTML =
         "<div style='display:inline-block; text-align:left;'>" +
           "<div style='margin-bottom:8px;'><b>Club:</b> " + (found.Club || "") + "</div>" +
-          "<table style='border-collapse:collapse;'>" + rows + "</table>" +
+          "<table style='border-collapse:collapse; font-size:16px;'>" + rows + "</table>" +
         "</div>";
     }
 
