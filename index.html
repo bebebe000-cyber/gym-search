@@ -41,13 +41,19 @@ function searchCity() {
     return;
   }
 
-  resultDiv.innerHTML = `
-    <table style="margin:auto;">
-      <tr><td>Sauna:</td><td>${found.Sauna}</td></tr>
-      <tr><td>Solarium:</td><td>${found.Solarium}</td></tr>
-      <tr><td>Massage:</td><td>${found.Massage}</td></tr>
-    </table>
-  `;
+ resultDiv.innerHTML = `
+<table style="margin:auto; border-collapse:collapse;">
+<tr><td>Sauna:</td><td>${found["Sauna"] || "No data"}</td></tr>
+<tr><td>Infrarot:</td><td>${found["Infrarot"] || "No data"}</td></tr>
+<tr><td>Lady Area:</td><td>${found["Lady Area"] || "No data"}</td></tr>
+<tr><td>Milon:</td><td>${found["Milon"] || "No data"}</td></tr>
+<tr><td>Collagen:</td><td>${found["Collagen"] || "No data"}</td></tr>
+<tr><td>Solarium:</td><td>${found["Solarium"] || "No data"}</td></tr>
+<tr><td>Massage:</td><td>${found["Massage"] || "No data"}</td></tr>
+<tr><td>PowerPlate:</td><td>${found["PowerPlate"] || "No data"}</td></tr>
+<tr><td>andere Vibraplatte:</td><td>${found["andere Vibraplatte"] || "No data"}</td></tr>
+</table>
+`;
 }
 
 document.getElementById("cityInput").addEventListener("keypress", function(e) {
