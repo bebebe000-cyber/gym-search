@@ -6,7 +6,7 @@
   <title>Club Ausstattungsliste</title>
 </head>
 
-<body style="background:#656565; font-family: Arial, Helvetica, sans-serif;">
+<body style="background:#222222; font-family: Arial, Helvetica, sans-serif;">
   <div style="width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center;">
     <div style="text-align:center;">
 
@@ -20,8 +20,8 @@
   type="text"
   placeholder="Club eingeben (z.B. Ahlen)"
   style="width:360px; padding:10px; font-size:16px; background:#656565; border:1px solid #BE5504;"
-  onfocus="this.style.background='#555555'"
-  onblur="this.style.background='#656565'"
+  onfocus="this.style.background='#333333'"
+  onblur="this.style.background='#222222'"
   autocomplete="off"
   />
   <button id="searchBtn" style="padding:10px 14px; font-size:16px;">Search</button>
@@ -68,7 +68,7 @@
       for (const key of FEATURES) {
         const value = (found[key] ?? "").toString().trim();
         rows += "<tr>"
-  + "<td style='padding:4px 10px; text-align:left; color:#456178;'>" + key + ":</td>"
+  + "<td style='padding:4px 10px; text-align:left; color:##4ебе81;'>" + key + ":</td>"
   + "<td style='padding:4px 10px; text-align:left; color:#456178;'><b>" + (value || "No data") + "</b></td>"
   + "</tr>";;
       }
