@@ -20,6 +20,7 @@
 let clubs = [];
 
 fetch("data.json")
+  console.log(clubs);
   .then(r => r.json())
   .then(d => {
     clubs = d.filter(c => c.Club);
